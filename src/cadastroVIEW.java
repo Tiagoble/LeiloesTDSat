@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -144,13 +147,22 @@ public class cadastroVIEW extends javax.swing.JFrame {
         String nome = cadastroNome.getText();
         String valor = cadastroValor.getText();
         String status = "A Venda";
-        produto.setNome(nome);
-        produto.setValor(Integer.parseInt(valor));
-        produto.setStatus(status);
+        
         
         ProdutosDAO produtodao = new ProdutosDAO();
-        produtodao.cadastrarProduto(produto);
-        
+        try{
+            if(!nome.isEmpty() || !valor.isEmpty() || !status.isEmpty()){
+                produto.setNome(nome);
+                produto.setValor(Integer.parseInt(valor));
+                produto.setStatus(status);
+                produtodao.cadastrarProduto(produto);
+                JOptionPane.showMessageDialog(null, "cadastro realizado!");
+            }else{
+                JOptionPane.showMessageDialog(null, "Os campos não podem ficar vazios",  "erro no cadastro", JOptionPane.WARNING_MESSAGE);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar produto",  "erro no cadastro", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
